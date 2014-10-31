@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <title>Seen Zone</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        <style type="text/css">
+            html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background-color:white; }
+            div#fullpage { width:100%; height:100%; margin:0; padding:0; border:0px solid red; text-align:center; vertical-align:middle; }
+            button { font-size: 22px; }
+            html, body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                position: fixed;
+            }
+            canvas {
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+                -webkit-tap-highlight-color: transparent; 
+                border: 1px solid #000;
+                width: 100%;
+                height: 100%;
+                position: fixed;
+            }
+            .ui-loader {
+                display: none;
+            }
+        </style>
+        <meta charset="utf-8" />
+        
+        <script type="text/javascript">
+          WebFontConfig = {
+            custom: {
+            families: ['UTM Avo'],
+            urls: ['font/font.css']
+            }
+           
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = 'webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })(); 
+        </script>
+        <!--
+        <script charset="utf-8" src = "jquery.js"></script>
+        <script charset="utf-8" src = "jquery.mobile-1.4.4.js"></script>
+        <script charset="utf-8" src = "frame/bkgm3.js"></script>
+        <script charset="utf-8" src = "frame/behavior.js"></script>-->
+        <!--
+        <script charset="utf-8" src = "frame/fgl.js"></script>
+        -->
+        
+        <!--<script charset="utf-8" src = "frame/fgl-scaler.js"></script>
+        <script charset="utf-8" src = "frame/states.js"></script>
+        <script charset="utf-8" src = "frame/button.js"></script>-->
+        <script charset="utf-8" src = "frame/jquery.min.js"></script>
+		<script charset="utf-8" src = "frame/bkgm.js"></script>
+		<script charset="utf-8" src = "frame/fgl-scaler.js"></script>
+		<script charset="utf-8" src = "frame/states.js"></script>
+		<script charset="utf-8" src = "frame/actor.js"></script>
+    </head>
+    <body onload="onDocLoad()">
+    <script>
+    function onDocLoad() {
+        if(( /(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent) )) {
+            document.addEventListener('deviceready', initApp, false);
+        } else {
+            initApp();
+        }
+    }
+    
+    function initApp() {
+        initAd();
+        window.plugins.AdMob.createInterstitialView();
+    }
+    function initAd(){
+        if ( window.plugins && window.plugins.AdMob ) {
+            var ad_units = {
+                ios : {
+                    banner: 'ca-app-pub-3509800758147358/5274543629',
+                    interstitial: 'ca-app-pub-3509800758147358/5274543629'
+                },
+                android : {
+                    banner: 'ca-app-pub-3509800758147358/8228010028',
+                    interstitial: 'ca-app-pub-3509800758147358/8228010028'
+                },
+                wp8 : {
+                    banner: 'ca-app-pub-3509800758147358/2181476425',
+                    interstitial: 'ca-app-pub-3509800758147358/2181476425'
+                }
+            };
+            var admobid = "";
+            if( /(android)/i.test(navigator.userAgent) ) {
+                admobid = ad_units.android;
+            } else if(/(iphone|ipad)/i.test(navigator.userAgent)) {
+                admobid = ad_units.ios;
+            } else {
+                admobid = ad_units.wp8;
+            }
+
+            window.plugins.AdMob.setOptions( {
+                publisherId: admobid.banner,
+                interstitialAdId: admobid.interstitial,
+                bannerAtTop: false, // set to true, to put banner at top
+                overlap: false, // set to true, to allow banner overlap webview
+                offsetTopBar: false, // set to true to avoid ios7 status bar overlap
+                isTesting: false, // receiving test ad
+                autoShow: false // auto show interstitial ad when loaded
+            });
+            
+        } else {
+            console.log( 'admob plugin not ready' );
+        }
+    }
+    </script>
+    <div id='fill'>
+		<canvas id="canvas"></canvas>
+	</div>
+    <script>
+    window.addEventListener('orientationchange', function() {
+            window.scrollTo(0, 0);
+    }, false);
+    </script>
+    <script charset="utf-8" src = "main.js"></script>
+    
+    </body>
+</html>
